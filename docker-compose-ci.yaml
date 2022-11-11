@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  front:
+    image: kpaveliev/skypro-kinopoisk_front:latest
+    ports:
+      - "80:3000"
+  api:
+    image: kpaveliev/skypro-cw04-kinopoisk_v2:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./docker_config.py:/code/project/config.py
+    depends_on:
+      pg:
+        condition: service_healthy
+  pg:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $DB_USER -d $DB_NAME"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

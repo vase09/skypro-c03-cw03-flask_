@@ -1,0 +1,13 @@
+test.py
+tests.py
+archive/
+venv/
+.idea/
+.*_cache/
+__pycache__
+.coverage
+/tests
+/pg_data
+docker-compose.yaml
+project/docker_config.py
+project/config.py

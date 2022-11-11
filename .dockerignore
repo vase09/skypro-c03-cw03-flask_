@@ -1,0 +1,11 @@
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yaml
+project/config.py
+project/data/
+.git/
+*.db
+venv/
+__pycache__/
+.idea/
